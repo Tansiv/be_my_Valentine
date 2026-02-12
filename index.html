@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="A romantic interactive Valentine's surprise for Israt Jahan Payel">
+    <title>💖 For Israt Jahan Payel - A Love Story</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Poppins:wght@300;400;500;600&family=Dancing+Script:wght@400;600;700&family=Sacramento&display=swap" rel="stylesheet">
+    
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    
+    <!-- 🌸 Canvas for Falling Cherry Blossoms -->
+    <canvas id="sakuraCanvas"></canvas>
+    
+    <!-- 🎵 Audio Controls (Top Right) -->
+    <div class="audio-controls">
+        <button id="musicToggle" class="music-btn" aria-label="Toggle Background Music">
+            <span class="music-icon">🎵</span>
+        </button>
+    </div>
+    
+    <!-- 🔊 Background Music -->
+    <!-- 🔧 CUSTOMIZATION: Add your romantic background music here -->
+    <!-- FILE LOCATION: assets/audio/background-music.mp3 -->
+    <!-- RECOMMENDED: Soft instrumental, 3-5 minutes, loop-friendly -->
+    <audio id="bgMusic" loop>
+        <source src="assets/audio/background-music.mp3" type="audio/mpeg">
+        Your browser does not support audio.
+    </audio>
+    
+    <!-- 💋 Kiss Effect Container -->
+    <div id="kissContainer"></div>
+    
+    <!-- =============================================== -->
+    <!-- SECTION 0: PERSONALIZED WELCOME SCREEN -->
+    <!-- =============================================== -->
+    <section id="welcome" class="section welcome-section">
+        <div class="welcome-content">
+            <!-- 🔧 CUSTOMIZATION: Add her photo here -->
+            <!-- FILE LOCATION: assets/images/payel-photo.jpg -->
+            <!-- RECOMMENDED: Portrait photo, 800x800px, JPG format -->
+            <div class="welcome-photo-frame">
+                <div class="photo-glow"></div>
+                <div class="welcome-photo">
+                    <!-- Replace the placeholder with actual image -->
+                    <img src="assets/images/payel-photo.jpg" alt="Israt Jahan Payel" class="payel-image">
+                    <!-- If image not added yet, placeholder will show -->
+                    <div class="photo-placeholder">
+                
+                    </div>
+                </div>
+                <div class="floating-hearts-frame">
+                    <span class="frame-heart">💖</span>
+                    <span class="frame-heart">💕</span>
+                    <span class="frame-heart">💗</span>
+                    <span class="frame-heart">💓</span>
+                </div>
+            </div>
+            
+            <h1 class="welcome-name">
+                <span class="name-line-1">Israt Jahan</span>
+                <span class="name-line-2">Payel</span>
+            </h1>
+            
+            <p class="welcome-subtitle">
+                This website is crafted specially for you 💝
+            </p>
+            
+            <button class="enter-button glow-button" id="enterWebsite">
+                <span class="button-text">Enter Your Love Journey</span>
+                <span class="button-icon">✨</span>
+            </button>
+        </div>
+        
+        <!-- Animated Background -->
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+    </section>
+    
+    <!-- =============================================== -->
+    <!-- SECTION 1: HERO / ROMANTIC MESSAGE -->
+    <!-- =============================================== -->
+    <section id="hero" class="section hero-section hidden-section">
+        <div class="hero-content">
+            <div class="animated-hearts">
+                <span class="heart">💖</span>
+                <span class="heart">💗</span>
+                <span class="heart">💓</span>
+                <span class="heart">💕</span>
+                <span class="heart">❤️</span>
+            </div>
+            
+            <h1 class="hero-title">
+                <span class="gradient-text">My Dearest</span>
+                <span class="cursive-text">Payel</span>
+            </h1>
+            
+            <p class="hero-subtitle fade-in-up">
+                Every moment with you feels like magic 🌹
+            </p>
+            
+            <button class="cta-button glow-button" id="startJourney">
+                <span class="button-text">Continue Our Story</span>
+                <span class="button-icon">💝</span>
+            </button>
+        </div>
+        
+        <!-- Animated Background Blobs -->
+        <div class="blob blob-3"></div>
+    </section>
+    
+    <!-- =============================================== -->
+    <!-- SECTION 2: ROMANTIC QUOTE -->
+    <!-- =============================================== -->
+    <section id="quote-section" class="section quote-section hidden-section">
+        <div class="container">
+            <div class="quote-card glassmorphism">
+                <div class="quote-icon">💌</div>
+                <blockquote id="randomQuote" class="quote-text">
+                    Loading beautiful words...
+                </blockquote>
+                <button class="refresh-quote-btn" id="refreshQuote" aria-label="Get new quote">
+                    <span class="rotate-icon">🔄</span>
+                </button>
+            </div>
+            
+            <button class="next-section-btn" data-next="quiz-section">
+                Next <span class="arrow">→</span>
+            </button>
+        </div>
+    </section>
+    
+    <!-- =============================================== -->
+    <!-- SECTION 3: LOVE QUIZ -->
+    <!-- =============================================== -->
+    <section id="quiz-section" class="section quiz-section hidden-section">
+        <div class="container">
+            <h2 class="section-title">
+                <span class="emoji-dance">💘</span>
+                How Well Do You Know Us?
+                <span class="emoji-dance">💘</span>
+            </h2>
+            
+            <div class="quiz-container" id="quizContainer">
+                <div class="quiz-progress">
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progressFill"></div>
+                    </div>
+                    <p class="progress-text">Question <span id="currentQuestion">1</span> of <span id="totalQuestions">5</span></p>
+                </div>
+                
+                <div class="quiz-content" id="quizContent">
+                    <!-- Quiz questions will be dynamically inserted here -->
+                </div>
+                
+                <div class="quiz-result hidden" id="quizResult">
+                    <div class="result-emoji" id="resultEmoji">🎉</div>
+                    <h3 class="result-title" id="resultTitle">Amazing!</h3>
+                    <p class="result-message" id="resultMessage">You know us so well!</p>
+                    <p class="result-score">Score: <span id="finalScore">0</span>/5</p>
+                    <button class="next-section-btn" data-next="photos-section">
+                        Continue <span class="arrow">→</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- =============================================== -->
+    <!-- SECTION 4: PHOTO MEMORY CAROUSEL -->
+    <!-- =============================================== -->
+    <section id="photos-section" class="section photos-section hidden-section">
+        <div class="container">
+            <h2 class="section-title">
+                <span class="emoji-dance">📸</span>
+                Our Beautiful Moments
+                <span class="emoji-dance">✨</span>
+            </h2>
+            
+            <div class="carousel-container">
+                <button class="carousel-btn prev-btn" id="prevPhoto" aria-label="Previous photo">
+                    ←
+                </button>
+                
+                <div class="carousel-track-container">
+                    <div class="carousel-track" id="carouselTrack">
+                        
+                        <!-- 🔧 CUSTOMIZATION: Add 5-10 couple photos -->
+                        <!-- FILE LOCATION: assets/images/photo1.jpg, photo2.jpg, etc. -->
+                        <!-- RECOMMENDED: 5-10 photos, 1200x800px, JPG format -->
+                        
+                        <!-- Photo 1 -->
+                        <div class="carousel-slide active">
+                            <div class="photo-card glassmorphism">
+                                <div class="photo-wrapper">
+                                    <img src="assets/images/photo1.jpg" alt="Our First Date" class="couple-photo">
+                                    <!-- Placeholder shown if image not loaded -->
+                                    <div class="photo-placeholder">
+                                        <span class="placeholder-icon">📷</span>
+                                        <p class="placeholder-text">Photo 1</p>
+                                    </div>
+                                </div>
+                                <div class="photo-caption">
+                                    <p class="caption-text">A date to remember 💕</p>
+                                
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Photo 2 -->
+                        <div class="carousel-slide">
+                            <div class="photo-card glassmorphism">
+                                <div class="photo-wrapper">
+                                    <img src="assets/images/photo2.jpg" alt="That Magical Evening" class="couple-photo">
+                                    <div class="photo-placeholder">
+                                        <span class="placeholder-icon">📷</span>
+                                        <p class="placeholder-text">Photo 2</p>
+                                    </div>
+                                </div>
+                                <div class="photo-caption">
+                                    <p class="caption-text">That Magical Evening 🌙</p>
+                             
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Photo 3 -->
+                        <div class="carousel-slide">
+                            <div class="photo-card glassmorphism">
+                                <div class="photo-wrapper">
+                                    <img src="assets/images/photo3.jpg" alt="Adventures Together" class="couple-photo">
+                                    <div class="photo-placeholder">
+                                        <span class="placeholder-icon">📷</span>
+                                        <p class="placeholder-text">Photo 3</p>
+                                    </div>
+                                </div>
+                                <div class="photo-caption">
+                                    <p class="caption-text">Adventures Together 🎢</p>
+                                   
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Photo 4 -->
+                        <div class="carousel-slide">
+                            <div class="photo-card glassmorphism">
+                                <div class="photo-wrapper">
+                                    <img src="assets/images/photo4.jpg" alt="Laughing Together" class="couple-photo">
+                                    <div class="photo-placeholder">
+                                        <span class="placeholder-icon">📷</span>
+                                        <p class="placeholder-text">Photo 4</p>
+                                    </div>
+                                </div>
+                                <div class="photo-caption">
+                                    <p class="caption-text">Laughing Until We Cried 😂</p>
+                            
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Photo 5 -->
+                        <div class="carousel-slide">
+                            <div class="photo-card glassmorphism">
+                                <div class="photo-wrapper">
+                                    <img src="assets/images/photo5.jpg" alt="Forever and Always" class="couple-photo">
+                                    <div class="photo-placeholder">
+                                        <span class="placeholder-icon">📷</span>
+                                        <p class="placeholder-text">Photo 5</p>
+                                    </div>
+                                </div>
+                                <div class="photo-caption">
+                                    <p class="caption-text">Forever and Always 💍</p>
+                             
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <button class="carousel-btn next-btn" id="nextPhoto" aria-label="Next photo">
+                    →
+                </button>
+                
+                <div class="carousel-dots" id="carouselDots">
+                    <!-- Dots will be generated by JavaScript -->
+                </div>
+            </div>
+            
+            <button class="next-section-btn" data-next="countdown-section">
+                Next <span class="arrow">→</span>
+            </button>
+        </div>
+    </section>
+    
+    <!-- =============================================== -->
+    <!-- SECTION 5: COUNTDOWN TIMER -->
+    <!-- =============================================== -->
+    <section id="countdown-section" class="section countdown-section hidden-section">
+        <div class="container">
+            <h2 class="section-title">
+                <span class="emoji-dance">⏰</span>
+                Counting Down To Forever
+                <span class="emoji-dance">💫</span>
+            </h2>
+            
+            <div class="countdown-card glassmorphism">
+                <!-- 🔧 CUSTOMIZATION: Set your special date in script.js (line 23) -->
+                <p class="countdown-label">Time Until Our Special Day</p>
+                <div class="countdown-timer" id="countdownTimer">
+                    <div class="time-unit">
+                        <span class="time-value" id="days">30</span>
+                        <span class="time-label">Days</span>
+                    </div>
+                    <div class="time-separator">:</div>
+                    <div class="time-unit">
+                        <span class="time-value" id="hours">00</span>
+                        <span class="time-label">Hours</span>
+                    </div>
+                    <div class="time-separator">:</div>
+                    <div class="time-unit">
+                        <span class="time-value" id="minutes">00</span>
+                        <span class="time-label">Minutes</span>
+                    </div>
+                    <div class="time-separator">:</div>
+                    <div class="time-unit">
+                        <span class="time-value" id="seconds">00</span>
+                        <span class="time-label">Seconds</span>
+                    </div>
+                </div>
+                <p class="countdown-message" id="countdownMessage">
+                    Every moment with you is precious ✨
+                </p>
+            </div>
+            
+            <button class="next-section-btn" data-next="secret-section">
+                Next <span class="arrow">→</span>
+            </button>
+        </div>
+    </section>
+    
+    <!-- =============================================== -->
+    <!-- SECTION 6: HIDDEN SECRET BUTTON HUNT -->
+    <!-- =============================================== -->
+    <section id="secret-section" class="section secret-section hidden-section">
+        <div class="container">
+            <h2 class="section-title">
+                <span class="emoji-dance">🔍</span>
+                Can You Find The Secret?
+                <span class="emoji-dance">🎁</span>
+            </h2>
+            
+            <div class="secret-hunt-area" id="secretHuntArea">
+                <p class="hunt-instruction">
+                    Touch around the screen... there's a hidden surprise somewhere! 👀
+                </p>
+                <p class="hunt-hint" id="huntHint">
+                    Hint: Look for the sparkles ✨
+                </p>
+                
+                <!-- Hidden button will be positioned randomly by JavaScript -->
+                <button class="secret-button" id="secretButton" aria-label="Secret surprise">
+                    <span class="secret-icon">🎉</span>
+                </button>
+                
+                <div class="secret-found hidden" id="secretFound">
+                    <div class="found-animation">
+                        <span class="found-emoji">🎊</span>
+                        <h3 class="found-title">You Found It!</h3>
+                        <p class="found-message">You're so good at treasure hunts... just like you found your way to my heart! 💖</p>
+                        <button class="next-section-btn" data-next="voice-section">
+                            Continue <span class="arrow">→</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- =============================================== -->
+    <!-- SECTION 7: VOICE MESSAGE -->
+    <!-- =============================================== -->
+    <section id="voice-section" class="section voice-section hidden-section">
+        <div class="container">
+            <h2 class="section-title">
+                <span class="emoji-dance">🎤</span>
+                A Message From The Heart
+                <span class="emoji-dance">💝</span>
+            </h2>
+            
+            <div class="voice-player glassmorphism">
+                <div class="voice-visualizer" id="voiceVisualizer">
+                    <div class="wave-bar"></div>
+                    <div class="wave-bar"></div>
+                    <div class="wave-bar"></div>
+                    <div class="wave-bar"></div>
+                    <div class="wave-bar"></div>
+                    <div class="wave-bar"></div>
+                    <div class="wave-bar"></div>
+                </div>
+                
+                <button class="play-voice-btn" id="playVoiceBtn" aria-label="Play voice message">
+                    <span class="play-icon">▶</span>
+                    <span class="play-text">Play Me </span>
+                </button>
+                
+                <!-- 🔧 CUSTOMIZATION: Add your voice message -->
+                <!-- FILE LOCATION: assets/audio/voice-message.mp3 -->
+                <!-- RECOMMENDED: 30-60 seconds, personal message, MP3 format -->
+                <audio id="voiceMessage">
+                    <source src="assets\audio\voice-messege.mp3" type="audio/mpeg">
+                    Your browser does not support audio.
+                </audio>
+                
+                <p class="voice-description">
+                    Press play to hear something special 💌
+                </p>
+            </div>
+            
+            <button class="next-section-btn" data-next="finale-section">
+                Next <span class="arrow">→</span>
+            </button>
+        </div>
+    </section>
+    
+    <!-- =============================================== -->
+    <!-- SECTION 8: FINAL SURPRISE TRIGGER -->
+    <!-- =============================================== -->
+    <section id="finale-section" class="section finale-section hidden-section">
+        <div class="container">
+            <h2 class="section-title">
+                <span class="emoji-dance">🎁</span>
+                One Last Thing...
+                <span class="emoji-dance">💖</span>
+            </h2>
+            
+            <div class="finale-card glassmorphism">
+                <p class="finale-text">
+                    You've made it through our journey together, Payel. Now, for the grand finale...
+                </p>
+                <button class="reveal-button glow-button" id="revealSurprise">
+                    <span class="button-text">Reveal The Surprise</span>
+                    <span class="button-icon">✨</span>
+                </button>
+            </div>
+        </div>
+    </section>
+    
+    <!-- =============================================== -->
+    <!-- SURPRISE MODAL (Hidden until revealed) -->
+    <!-- =============================================== -->
+    <div class="surprise-modal hidden" id="surpriseModal">
+        <div class="modal-overlay"></div>
+        <div class="modal-content glassmorphism">
+            <button class="modal-close" id="closeModal" aria-label="Close modal">×</button>
+            
+            <div class="surprise-animation">
+                <div class="hearts-burst">
+                    <span class="burst-heart">💖</span>
+                    <span class="burst-heart">💕</span>
+                    <span class="burst-heart">💗</span>
+                    <span class="burst-heart">💓</span>
+                    <span class="burst-heart">❤️</span>
+                </div>
+                
+                <h2 class="surprise-title gradient-text">
+                    Payel, You Are My Everything
+                </h2>
+                
+                <!-- 🔧 CUSTOMIZATION: Write your personal final message here -->
+                <div class="surprise-message">
+                    <p class="message-paragraph">
+                        JANNU, every day with you feels like a dream I never want to wake up from.
+                    </p>
+                    <p class="message-paragraph">
+                        You make me laugh when I want to cry, you believe in me when I doubt myself, 
+                        and you love me in ways I never knew were possible.
+                    </p>
+                    <p class="message-paragraph">
+                        This is just a small token of the infinite love I have for you.
+                        You are my sunshine, my inspiration, and my forever. LETS FUCK SOON
+                    </p>
+                    <p class="message-signature">
+                        Forever yours,<br>
+                        <span class="signature-name">Tansiv</span> 💝
+                    </p>
+                </div>
+                
+                <div class="final-emoji">
+                    <span class="big-emoji">🥰</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Confetti Canvas -->
+    <canvas id="confettiCanvas"></canvas>
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <p class="footer-text">
+            Made with 💖 and endless love for Israt Jahan Payel | Valentine's Day 2026
+        </p>
+    </footer>
+    
+    <!-- JavaScript -->
+    <script src="script.js"></script>
+    
+</body>
+</html>
