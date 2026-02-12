@@ -662,7 +662,8 @@ function setupCountdown() {
 }
 
 function updateCountdown() {
-    const now = new Date();
+    const SPECIAL_DATE = new Date("July 29, 2026 00:00:00").getTime();
+    const now = new Date().getTime();
     const difference = SPECIAL_DATE - now;
     
     if (difference <= 0) {
